@@ -268,15 +268,26 @@ void shopping :: rem()
     else{
         data1.open("database1.txt",ios::app|ios::out);
         data>>pcode>>pname>>price>>dis;
-        while (!data.eof())
+        while (!data.eof())        //pkey entered by the administator it matches to product code if block exicute
         {
             if(pcode==pkey){
                 cout<<"\n\n\t Product deleted Successfully";
                 token++;
             }
+            else{        // Not matches then data1 file displayed
+                data1<<" "<<pcode<<" "<<pname<<" "<<price<<" "<<dis<<"\n";
+            }
+             data>>pcode>>pname>>price>>dis;
         }
+        data.close();
+        data1.close();
+
+         remove("database.txt");    
+         rename("database1.txt","database.txt");
+
+       if(token==0)
         {
-            /* code */
+            cout<<"\n\n Record not found  ";
         }
         
     }
