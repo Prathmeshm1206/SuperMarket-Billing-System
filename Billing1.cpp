@@ -240,8 +240,47 @@ void shopping :: edit()
         }
         data.close();
         data1.close();
+                          //Rename database back to original database
+        remove("database.txt");    
+        rename("database1.txt","database.txt");
+
+        if(token==0)
+        {
+            cout<<"\n\n Record not found sorry! ";
+        }
+    }
+
+}
+
+void shopping :: rem()
+{
+    fstream data, data1;
+    int pkey;
+    int token=0;
+    cout<<"\n\n\t Delete product";
+    cout<<"\n\n\t Product code: ";
+    cin>>pkey;
+    data.open("database.txt",ios::in);
+    if(!data)
+    {
+        cout<<"File doesn't Exist";
+    }
+    else{
+        data1.open("database1.txt",ios::app|ios::out);
+        data>>pcode>>pname>>price>>dis;
+        while (!data.eof())
+        {
+            if(pcode==pkey){
+                cout<<"\n\n\t Product deleted Successfully";
+                token++;
+            }
+        }
+        {
+            /* code */
+        }
         
     }
+
 
 }
 
