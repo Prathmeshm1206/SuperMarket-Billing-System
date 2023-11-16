@@ -147,6 +147,7 @@ void shopping :: buyer()
 
 void shopping :: add()
 {
+    m:
     fstream data;                 
     int c ;
     int token=0;
@@ -182,8 +183,66 @@ void shopping :: add()
             }
             data>>c>>n>>p>>d;
         }
+        data.close();
+    }
+
+    if(token==1)   
+    goto m;
+    else {
+        data.open("database.txt",ios::app|ios::out);        
+        data<<" "<<pcode<<" "<<pname<<" "<<price<<" "<<dis<<" "<<"\n";
+        data.close();
+    }
+    cout<<"\n\n\t\t Record Inserted! ";
+}
+ 
+void shopping :: edit()
+{
+    fstream data, data1;
+    int pkey;
+    int token=0;
+    int c; 
+    float p;
+    float d;
+    string n ;
+    cout<<"\n\t\t\t Modify the record";
+    cout<<"\n\t\t\t Product code :";
+    cin>>pkey;
+
+    data.open("database.txt",ios::in);
+    if(!data)
+    {
+        cout<<"\n\n File doesn't exist! ";
+    }
+    else {
+        data1.open("database1.txt",ios::app|ios::out);  //Here we will save edited data in new file 
+        data>>pcode>>pname>>price>>dis;
+        while (!data.eof())
+        {
+            if(pkey==pcode){        
+                cout<<"\n\t\t Product new code : ";
+                cin>>c;
+                cout<<"\n\t\t Name of the product :";
+                cin>>n;
+                cout<<"\n\t\t Price ";
+                cin>>p;
+                cout<<"\n\t\t Discount :";
+                cin>>d;
+                data1<<" "<<c<<" "<<n<<" "<<p<<" "<<d<<"\n";
+                cout<<"\n\n\t\t Record Edited";
+                token++;
+            }
+            else    //if ProductCode doesn't matches  within the  file then add in the new file  
+            {
+                data1<<" "<<pcode<<" "<<pname<<" "<<price<<" "<<dis<<"\n";
+            }
+            data>>pcode>>pname>>price>>dis;
+        }
+        data.close();
+        data1.close();
         
     }
+
 }
 
 
