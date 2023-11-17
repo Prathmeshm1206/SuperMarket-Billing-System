@@ -295,7 +295,103 @@ void shopping :: rem()
 
 }
 
+void shopping:: list()
+{
+    fstream data;
+    data.open("database.txt",ios::in);
+    cout<<"\n\n|________________________________________________\n";
+    cout<<"ProNo\t\tName\t\tPrice\n";
+    cout<<"\n\n|________________________________________________\n";
+    data>>pcode>>pname>>price>>dis;
+    while(!data.eof())              //for iteration from the list
+    {
+        cout<<pcode<<"\t\t"<<pname<<"\t\t"<<price<<"\n";
+        data>>pcode>>pname>>price>>dis;
 
+    }
+    data.close();
+}
+void shopping :: receipt()
+{
+    m:
+    fstream data;
+    int arrc[100];
+    int arrq[100];
+    char choice;
+    char c=0;
+    float amount=0;
+    float dis=0;
+    float total=0;
+
+    cout<<"\n\n\t\t\t\t RECEPT ";
+    data.open("database.txt",ios::in);
+    if(!data)
+    {
+        cout<<"\n\n Empty database";
+    }
+    else
+    {
+        data.close();
+        list();
+        cout<<"\n_________________________________________\n";
+        cout<<"\n|                                        \n";
+        cout<<"\n           Please Place the order        \n";
+        cout<<"\n|                                        \n";
+        cout<<"\n_________________________________________\n";
+        do
+        {
+            cout<<"\n\n Enter Product code :";
+            cin>>arrc[c];
+            cout<<"\n\nEnter the product Quantity :";
+            cin>>arrq[c];
+            for(int i=0; i<c;i++)
+            {
+                if(arrc[c]==arrc[i])
+                {
+                    cout<<"\n\n Duplicate Product code, please try again";
+                    goto m;
+                }
+            }
+            c++;
+            cout<<"\n\n Do you want to buy another product? if yes then press y else no";
+            cin>>choice;
+
+        }while(choice =='y');
+       
+        cout<<"\n\n\t\t\t______________________RECEIPT_____________________\n";
+        cout<<"\n Product No \t product Name \t product quantity\tprice\tAmount\tAmount with discount\n";
+        for(int i=0; i<c;i++)
+        {
+            data.open("database.txt",ios::in);
+            data>>pcode>>pname>>price>>dis;
+            while(!data.eof())
+            {
+                if(pcode==arrc[i])
+                {
+                    amount=price*arrc[i];
+                    dis=amount*(dis/100);
+                    total=total+dis;
+                    cout<<"\n"<<pcode<<pname<<arrc[i]<<price<<amount<<dis;
+                }
+                data>>pcode>>pname>>price>>dis;
+            }
+        }
+        data.close();
+    }
+      cout<<"\n\n___________________________________________________________";
+      cout<<"\n Total Amount : "<<total;
+
+
+}
+
+
+int main()
+{
+    shopping s;
+    s.menu();
+
+
+}
 
 
 
