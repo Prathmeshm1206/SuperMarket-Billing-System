@@ -340,6 +340,7 @@ void shopping :: receipt()
         cout<<"\n_________________________________________\n";
         do
         {
+            
             cout<<"\n\n Enter Product code :";
             cin>>arrc[c];
             cout<<"\n\nEnter the product Quantity :";
@@ -348,18 +349,18 @@ void shopping :: receipt()
             {
                 if(arrc[c]==arrc[i])
                 {
-                    cout<<"\n\n Duplicate Product code, please try again";
+                    cout<<"\n\n Duplicate Product code, please try again!";
                     goto m;
                 }
             }
             c++;
-            cout<<"\n\n Do you want to buy another product? if yes then press y else no";
+            cout<<"\n\n Do you want to buy another product? if yes then press y else no : ";
             cin>>choice;
 
         }while(choice =='y');
        
         cout<<"\n\n\t\t\t______________________RECEIPT_____________________\n";
-        cout<<"\n Product No \t product Name \t product quantity\tprice\tAmount\tAmount with discount\n";
+        cout<<"\nProduct No\tproduct Name\tproduct quantity\tprice\tAmount\tAmount with discount\n";
         for(int i=0; i<c;i++)
         {
             data.open("database.txt",ios::in);
@@ -368,10 +369,10 @@ void shopping :: receipt()
             {
                 if(pcode==arrc[i])
                 {
-                    amount=price*arrc[i];
-                    dis=amount*(dis/100);
+                    amount=price*arrq[i];
+                    dis=amount-(amount*dis/100);
                     total=total+dis;
-                    cout<<"\n"<<pcode<<pname<<arrc[i]<<price<<amount<<dis;
+                    cout<<arrq[i]<<"\n"<<pcode<<"\t\t"<<pname<<"\t\t"<<"\t\t\t"<<price<<"\t"<<amount<<"\t\t"<<dis;
                 }
                 data>>pcode>>pname>>price>>dis;
             }

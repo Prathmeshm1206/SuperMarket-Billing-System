@@ -1,0 +1,6 @@
+ 1 coffee 70 3 
+ 2 juice 150 5
+ 3 maggie 50 2
+ 4 bread 200 4
+ 5 butter 200 6
+ 
